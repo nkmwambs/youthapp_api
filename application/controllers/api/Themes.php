@@ -15,6 +15,7 @@ class Themes extends REST_Controller {
     public function __construct() {
        parent::__construct();
        $this->load->database();
+       $this->load->model('theme_model');
     }
        
     /**
@@ -24,11 +25,7 @@ class Themes extends REST_Controller {
     */
 	public function themesdata_get($id = 0)
 	{
-        if(!empty($id)){
-            $data = $this->db->get_where("theme", ['theme_id' => $id])->row_array();
-        }else{
-            $data = $this->db->get("theme")->result();
-        }
+        $data=$this->theme_model->get_themes($id);
      
         $this->response($data, REST_Controller::HTTP_OK);
 	}
